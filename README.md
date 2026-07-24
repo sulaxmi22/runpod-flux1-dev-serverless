@@ -14,6 +14,7 @@ A production-ready, dual-deployment serverless endpoint for [black-forest-labs/F
 - **`ui/`** — Standalone high-end React-style browser frontend for interactively calling the endpoint.
 - **`server.py`** — Flask proxy server for hosting the UI without exposing the Runpod API key.
 - **`server_requirements.txt`** — Python dependencies for `server.py`.
+- **`render.yaml`** — Render Blueprint to deploy `server.py` as a Python web service.
 - **`assets/`** — Demo artifacts (e.g., generated images).
 - **`.env.example`** — Environment variable template.
 
@@ -205,10 +206,15 @@ Then open `http://localhost:5001`.
 
 The default port is 5001 to avoid the macOS AirPlay Receiver conflict on port 5000.
 
-Deploy to Render / Railway / Fly.io:
+Deploy to Render:
+- Click **New +** → **Blueprint** in the Render dashboard and select this repo. `render.yaml` will create a Python Web Service automatically.
+- Or create a **Python Web Service** manually with:
+  - Build command: `pip install -r server_requirements.txt`
+  - Start command: `gunicorn -w 1 -b 0.0.0.0:$PORT server:app`
 - Set environment variables `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID`.
-- Use build command `pip install -r server_requirements.txt` and start command `gunicorn -w 1 server:app`.
 - Share the public URL.
+
+**Do not deploy the `Dockerfile` on Render.** It is a GPU image for Runpod and will fail on Render's CPU workers.
 
 **Warning:** every generation consumes Runpod credits. Keep scale-to-zero enabled and warn reviewers about cost.
 

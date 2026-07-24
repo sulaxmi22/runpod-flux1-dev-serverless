@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: runpod-flux1-dev-serverless
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r server_requirements.txt
+    startCommand: gunicorn -w 1 -b 0.0.0.0:$PORT server:app
+    envVars:
+      - key: RUNPOD_API_KEY
+        sync: false
+      - key: RUNPOD_ENDPOINT_ID
+        sync: false
