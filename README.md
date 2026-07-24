@@ -1,9 +1,5 @@
 # Runpod FLUX.1-dev Serverless Endpoint
 
-[![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://python.org)
-[![Runpod](https://img.shields.io/badge/Runpod-Serverless-7000FF)](https://www.runpod.io)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 A production-ready, dual-deployment serverless endpoint for [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) image generation on the Runpod GPU cloud. It supports both **Runpod Flash** (no-container, rapid serverless deploy) and a classic **Docker worker** for full reproducibility and BYOC workflows.
 
 ## Files
