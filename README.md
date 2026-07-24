@@ -16,6 +16,8 @@ A production-ready, dual-deployment serverless endpoint for [black-forest-labs/F
 - **`test_client.py`** — Python CLI to submit a prompt and poll for the generated image.
 - **`build_push.sh`** — Helper to build and push the Docker image.
 - **`ui/`** — Standalone high-end React-style browser frontend for interactively calling the endpoint.
+- **`server.py`** — Flask proxy server for hosting the UI without exposing the Runpod API key.
+- **`server_requirements.txt`** — Python dependencies for `server.py`.
 - **`assets/`** — Demo artifacts (e.g., generated images).
 - **`.env.example`** — Environment variable template.
 
@@ -184,7 +186,33 @@ The response contains a base64-encoded PNG:
 
 ## Frontend UI
 
-A standalone, high-end browser interface is included in `ui/`. It uses Tailwind CSS and vanilla JavaScript to submit prompts to the deployed Runpod endpoint, poll for completion, and render the generated image. Open `ui/index.html` in a browser or serve the `ui/` directory with any static server.
+Two UI options are provided:
+
+### Static UI (`ui/index.html`)
+
+Open `ui/index.html` in a browser to call the Runpod API directly. You need the endpoint ID and API key in the form. This is useful for local development.
+
+### Hosted UI for recruiters (`server.py`)
+
+The included Flask server (`server.py`) hides your Runpod API key and streams the live console log to the browser via Server-Sent Events. Recruiters only need the hosted URL; the server reads `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID` from environment variables.
+
+Run locally:
+
+```bash
+cp .env.example .env
+# fill in RUNPOD_API_KEY and RUNPOD_ENDPOINT_ID
+pip install -r server_requirements.txt
+python server.py
+```
+
+Then open `http://localhost:5000`.
+
+Deploy to Render / Railway / Fly.io:
+- Set environment variables `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID`.
+- Use build command `pip install -r server_requirements.txt` and start command `gunicorn -w 1 server:app`.
+- Share the public URL.
+
+**Warning:** every generation consumes Runpod credits. Keep scale-to-zero enabled and warn reviewers about cost.
 
 ## Production, Security & Cost Notes
 
