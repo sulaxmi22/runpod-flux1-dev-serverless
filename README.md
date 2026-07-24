@@ -205,7 +205,9 @@ pip install -r server_requirements.txt
 python server.py
 ```
 
-Then open `http://localhost:5000`.
+Then open `http://localhost:5001`.
+
+The default port is 5001 to avoid the macOS AirPlay Receiver conflict on port 5000.
 
 Deploy to Render / Railway / Fly.io:
 - Set environment variables `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID`.
