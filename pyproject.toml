@@ -1,0 +1,9 @@
+[project]
+name = "flux1-dev-runpod-flash"
+version = "0.1.0"
+description = "Runpod Flash endpoint for FLUX.1-dev image generation (no Docker required)."
+requires-python = ">=3.10"
+dependencies = ["runpod-flash>=1.0.1"]
+
+[project.optional-dependencies]
+dev = ["requests"]

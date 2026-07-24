@@ -1,0 +1,26 @@
+# Secrets and local environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Generated test artifacts
+output.png
+output.jpg
+
+# UI/Frontend build artifacts
+node_modules/
+dist/
+
+# Keep demo assets in the repo
+!assets/*.png
+!assets/*.jpg
+*.jpeg
+generated_images/
+
+# Runpod Flash local cache
+.flash/

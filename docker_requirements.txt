@@ -1,0 +1,20 @@
+# Core ML / CUDA
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch>=2.3.0,<2.5
+torchvision>=0.18.1
+torchaudio>=2.3.0
+
+# Diffusers / transformers for FLUX.1-dev
+diffusers>=0.30.0
+transformers>=4.44.0
+accelerate>=0.33.0
+sentencepiece>=0.2.0
+
+# Runpod serverless SDK
+runpod>=1.7.0
+
+# Image handling + utilities
+Pillow>=10.4.0
+numpy>=1.26.0,<2.0
+safetensors>=0.4.4
+huggingface-hub>=0.24.0
