@@ -52,6 +52,12 @@ def generate():
 
 @app.route('/status/<job_id>')
 def status_stream(job_id):
+    if not RUNPOD_API_KEY or not RUNPOD_ENDPOINT_ID:
+        def missing():
+            nl = chr(10)
+            yield 'event: status' + nl + 'data: ' + json.dumps({'status': 'ERROR: Server not configured', 'error': 'Set RUNPOD_API_KEY and RUNPOD_ENDPOINT_ID in the .env file and restart the server.'}) + nl + nl
+        return Response(missing(), mimetype='text/event-stream')
+
     def stream():
         nl = chr(10)
         status_url = 'https://api.runpod.ai/v2/' + RUNPOD_ENDPOINT_ID + '/status/' + job_id

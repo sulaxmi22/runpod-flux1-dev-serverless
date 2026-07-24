@@ -107,6 +107,7 @@
     const downloadBtn = $('downloadBtn');
     const submitBtn = $('submitBtn');
     let eventSource = null;
+    let finished = false;
 
     function log(msg) {
       const line = document.createElement('div');
@@ -160,17 +161,20 @@
     });
 
     function listen(jobId) {
+      finished = false;
       eventSource = new EventSource('/status/' + jobId);
-      eventSource.onmessage = (e) => {
+      eventSource.addEventListener('status', (e) => {
         const d = JSON.parse(e.data);
         log('Status: ' + d.status);
         if (d.error) {
+          finished = true;
           setStatus(d.status, 'error');
           eventSource.close();
           submitBtn.disabled = false;
           return;
         }
         if (d.status === 'COMPLETED') {
+          finished = true;
           setStatus('Completed in ' + (d.inference_time_seconds || '?') + 's', 'success');
           if (d.image) {
             const b64 = d.image.startsWith('data:') ? d.image.split(',')[1] : d.image;
@@ -183,8 +187,9 @@
           eventSource.close();
           submitBtn.disabled = false;
         }
-      };
+      });
       eventSource.onerror = () => {
+        if (finished) return;
         setStatus('Connection error. The job may still be running.', 'error');
         log('ERROR: Lost connection to status stream.');
         if (eventSource) eventSource.close();
