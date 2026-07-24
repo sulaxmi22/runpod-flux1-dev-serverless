@@ -2,21 +2,8 @@
 
 A production-ready, dual-deployment serverless endpoint for [black-forest-labs/FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) image generation on the Runpod GPU cloud. It supports both **Runpod Flash** (no-container, rapid serverless deploy) and a classic **Docker worker** for full reproducibility and BYOC workflows.
 
-## Files
-
-- **`handler.py`** — Classic Runpod serverless handler (Docker path). Lazy-loads the FLUX.1-dev Diffusers pipeline once per worker.
-- **`Dockerfile`** — Production container image for the classic Docker path.
-- **`docker_requirements.txt`** — Python dependencies for the classic Docker path, including CUDA 12.1 wheels.
-- **`flash_app.py`** — Runpod Flash endpoint for FLUX.1-dev (no Dockerfile required).
-- **`pyproject.toml`** — Declares the `runpod-flash` build dependency.
-- **`test_client.py`** — Python CLI to submit a prompt and poll for the generated image.
-- **`build_push.sh`** — Helper to build and push the Docker image.
-- **`ui/`** — Standalone high-end React-style browser frontend for interactively calling the endpoint.
-- **`server.py`** — Flask proxy server for hosting the UI without exposing the Runpod API key.
-- **`server_requirements.txt`** — Python dependencies for `server.py`.
-- **`render.yaml`** — Render Blueprint to deploy `server.py` as a Python web service.
-- **`assets/`** — Demo artifacts (e.g., generated images).
-- **`.env.example`** — Environment variable template.
+**Check live - https://runpod-flux1-dev-serverless.onrender.com/**
+<img width="1249" height="809" alt="image" src="https://github.com/user-attachments/assets/fd1eb9c1-88ed-4ade-a73e-5013f7713a21" />
 
 ## Architecture
 
